@@ -378,16 +378,16 @@ public class Enquire extends AppCompatActivity {
                             String HospitalizationAmountLeft = "";
                             String AntenatalAmountLeft = "";
 
-                            TotalAdmissionsLeft = jsonObject.getString("TotalAdmissionsLeft").equalsIgnoreCase("null")? "": "TotalAdmissionsLeft: "+jsonObject.getString("TotalAdmissionsLeft");
-                            TotalVisitsLeft = jsonObject.getString("TotalVisitsLeft").equalsIgnoreCase("null")? "": "TotalVisitsLeft: "+jsonObject.getString("TotalVisitsLeft");
-                            TotalConsultationsLeft = jsonObject.getString("TotalConsultationsLeft").equalsIgnoreCase("null")? "": "TotalConsultationsLeft: "+jsonObject.getString("TotalConsultationsLeft");
-                            TotalSurgeriesLeft = jsonObject.getString("TotalSurgeriesLeft").equalsIgnoreCase("null")? "": "TotalSurgeriesLeft: "+jsonObject.getString("TotalSurgeriesLeft");
-                            TotalDelivieriesLeft = jsonObject.getString("TotalDelivieriesLeft").equalsIgnoreCase("null")? "": "TotalDelivieriesLeft: "+jsonObject.getString("TotalDelivieriesLeft");
-                            TotalAntenatalLeft = jsonObject.getString("TotalAntenatalLeft").equalsIgnoreCase("null")? "": "TotalAntenatalLeft: "+jsonObject.getString("TotalAntenatalLeft");
-                            ConsultationAmountLeft = jsonObject.getString("ConsultationAmountLeft").equalsIgnoreCase("null")? "": "ConsultationAmountLeft: "+jsonObject.getString("ConsultationAmountLeft");
-                            SurgeryAmountLeft = jsonObject.getString("SurgeryAmountLeft").equalsIgnoreCase("null")? "": "TotalAdmissionsLeft: "+jsonObject.getString("SurgeryAmountLeft");
-                            HospitalizationAmountLeft = jsonObject.getString("HospitalizationAmountLeft").equalsIgnoreCase("null")? "": "TotalAdmissionsLeft: "+jsonObject.getString("HospitalizationAmountLeft");
-                            AntenatalAmountLeft = jsonObject.getString("AntenatalAmountLeft").equalsIgnoreCase("null")? "": "AntenatalAmountLeft: "+jsonObject.getString("AntenatalAmountLeft");
+                            TotalAdmissionsLeft = getEnquireValue(jsonObject, "TotalAdmissionsLeft");
+                            TotalVisitsLeft     = getEnquireValue(jsonObject, "TotalVisitsLeft");
+                            TotalConsultationsLeft = getEnquireValue(jsonObject, "TotalConsultationsLeft");
+                            TotalSurgeriesLeft = getEnquireValue(jsonObject, "TotalSurgeriesLeft");
+                            TotalDelivieriesLeft = getEnquireValue(jsonObject, "TotalDelivieriesLeft");
+                            TotalAntenatalLeft = getEnquireValue(jsonObject, "TotalAntenatalLeft");
+                            ConsultationAmountLeft = getEnquireValue(jsonObject, "ConsultationAmountLeft");
+                            SurgeryAmountLeft = getEnquireValue(jsonObject, "SurgeryAmountLeft");
+                            HospitalizationAmountLeft = getEnquireValue(jsonObject, "HospitalizationAmountLeft");
+                            AntenatalAmountLeft = getEnquireValue(jsonObject, "AntenatalAmountLeft");
 
                             if(!ca.getSpecificControl("TotalAdmissionsLeft").equals("N")){Policy.put("SubItem4",TotalAdmissionsLeft);}
                             if(!ca.getSpecificControl("TotalVisitsLeft").equals("N")){Policy.put("SubItem5",TotalVisitsLeft);}
@@ -416,6 +416,7 @@ public class Enquire extends AppCompatActivity {
 
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block
+                    Log.e("Error", e.toString());
                     result = "";
                 }catch(Exception e){
                     Log.e("Error", e.toString());
@@ -481,4 +482,11 @@ public class Enquire extends AppCompatActivity {
 
     }
 
+    private String getEnquireValue(JSONObject jsonObject, String jsonKey) throws JSONException {
+        String value = jsonObject.getString(jsonKey);
+        if(value.equalsIgnoreCase("null")) {
+            value = "N/A";
+        }
+        return jsonKey + ": " + value;
+    }
 }
